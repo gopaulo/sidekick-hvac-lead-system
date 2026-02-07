@@ -1,28 +1,27 @@
 """
-Configuration File - FILL IN YOUR API CREDENTIALS
+Configuration File - Reads from Environment Variables
 """
+import os
 
 # Twilio Configuration
-TWILIO_ACCOUNT_SID = "YOUR_TWILIO_ACCOUNT_SID"  # Get from twilio.com/console
-TWILIO_AUTH_TOKEN = "YOUR_TWILIO_AUTH_TOKEN"    # Get from twilio.com/console
-TWILIO_PHONE_NUMBER = "+12485551234"            # Your Twilio number (format: +1XXXXXXXXXX)
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = os.environ.get('TWILIO_PHONE_NUMBER')
 
-# Calendly Configuration
-CALENDLY_API_KEY = "YOUR_CALENDLY_API_KEY"      # Get from calendly.com/integrations/api_webhooks
-CALENDLY_EVENT_TYPE = "https://api.calendly.com/event_types/XXXXXX"  # Your event type URI
+# Calendly Configuration  
+CALENDLY_URL = os.environ.get('CALENDLY_URL', 'https://calendly.com/max-splendor/30min')
+CALENDLY_API_KEY = None  # Not using API, just sending URL in SMS
+CALENDLY_EVENT_TYPE = None  # Not using API
 
 # OpenRouter (AI) Configuration
-OPENROUTER_API_KEY = "YOUR_OPENROUTER_API_KEY"  # Get from openrouter.ai
-AI_MODEL = "anthropic/claude-3.5-sonnet"        # Or "openai/gpt-4" or cheaper options
+OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
+AI_MODEL = "anthropic/claude-3.5-sonnet"
 
 # Company Information (for SMS responses)
-COMPANY_NAME = "ABC Heating & Cooling"
-COMPANY_PHONE = "(248) 555-1234"
+COMPANY_NAME = "Sidekick HVAC"
+COMPANY_PHONE = os.environ.get('TWILIO_PHONE_NUMBER', '(248) 480-8761')
 SERVICE_AREA = "Rochester Hills, Troy, Auburn Hills, Bloomfield, Sterling Heights"
 
 # System Settings
-DEBUG = True  # Set to False in production
-LOG_LEVEL = "INFO"
-
-# Database (for production - currently using in-memory storage)
-# DATABASE_URL = "postgresql://user:pass@localhost/sidekick_leads"
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
